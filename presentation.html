@@ -96,7 +96,7 @@
 
     <script>
         document.querySelectorAll('.dot').forEach(dot => {
-            dot.addEventListener('click', function () {
+            dot.addEventListener('mouseenter', function () {
                 const targetSlide = this.getAttribute('data-target');
                 const currentSlide = document.querySelector('.slide.active').id;
 
@@ -124,4 +124,3 @@
     </script>
 </body>
 </html>
-
