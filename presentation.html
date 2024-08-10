@@ -73,21 +73,21 @@
         <div class="dot dot4" data-target="slide4"></div>
     </div>
     <div id="slide2" class="slide">
-        <img src="https://bedmart.github.io/BedMart/Page0-Image2.PNG" alt="Slide 2">
+        <img src="https://bedmart.github.io/BedMart/Page1-Image0.PNG" alt="Slide 2">
         <div class="dot dot1" data-target="slide1"></div>
         <div class="dot dot2" data-target="slide2"></div>
         <div class="dot dot3" data-target="slide3"></div>
         <div class="dot dot4" data-target="slide4"></div>
     </div>
     <div id="slide3" class="slide">
-        <img src="https://bedmart.github.io/BedMart/Page0-Image3.PNG" alt="Slide 3">
+        <img src="https://bedmart.github.io/BedMart/Page2-Image0.PNG" alt="Slide 3">
         <div class="dot dot1" data-target="slide1"></div>
         <div class="dot dot2" data-target="slide2"></div>
         <div class="dot dot3" data-target="slide3"></div>
         <div class="dot dot4" data-target="slide4"></div>
     </div>
     <div id="slide4" class="slide">
-        <img src="https://bedmart.github.io/BedMart/Page0-Image4.PNG" alt="Slide 4">
+        <img src="https://bedmart.github.io/BedMart/Page3-Image0.PNG" alt="Slide 4">
         <div class="dot dot1" data-target="slide1"></div>
         <div class="dot dot2" data-target="slide2"></div>
         <div class="dot dot3" data-target="slide3"></div>
@@ -95,27 +95,32 @@
     </div>
 
     <script>
-        const dots = document.querySelectorAll('.dot');
-        const slides = document.querySelectorAll('.slide');
+        document.querySelectorAll('.dot').forEach(dot => {
+            dot.addEventListener('mouseover', function () {
+                const targetSlide = this.getAttribute('data-target');
+                const currentSlide = document.querySelector('.slide.active').id;
 
-        dots.forEach(dot => {
-            dot.addEventListener('click', () => {
-                const targetSlide = document.getElementById(dot.getAttribute('data-target'));
-
-                // Deactivate all slides
-                slides.forEach(slide => slide.classList.remove('active'));
-
-                // Activate the target slide
-                targetSlide.classList.add('active');
-
-                // Deactivate all dots
-                dots.forEach(dot => dot.classList.add('inactive'));
-
-                // Activate the dots in the active slide
-                const activeDots = targetSlide.querySelectorAll('.dot');
-                activeDots.forEach(dot => dot.classList.remove('inactive'));
+                if (targetSlide !== currentSlide) {
+                    document.querySelector('.slide.active').classList.remove('active');
+                    document.getElementById(targetSlide).classList.add('active');
+                    updateDots(targetSlide);
+                }
             });
         });
+
+        function updateDots(activeSlide) {
+            document.querySelectorAll('.dot').forEach(dot => {
+                const targetSlide = dot.getAttribute('data-target');
+                if (targetSlide === activeSlide) {
+                    dot.classList.add('inactive');
+                } else {
+                    dot.classList.remove('inactive');
+                }
+            });
+        }
+
+        // Initialize dots
+        updateDots('slide1');
     </script>
 </body>
 </html>
