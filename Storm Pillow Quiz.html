@@ -6,6 +6,8 @@
             font-family: 'Montserrat', sans-serif;
             font-size: 16px; /* Assuming 1rem = 16px */
             line-height: 1.5;
+            margin: 0;
+            padding: 0;
         }
         
         h5, .h5 {
@@ -46,17 +48,24 @@
             background-color: #fff;
             color: #81868e;
             cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         button:hover {
             background-color: #e0f7ff;
         }
+
+        #result-container {
+            overflow: hidden;
+            transition: height 0.3s ease;
+        }
+
     </style>
 </head>
 
 <body>
     <div style="margin-bottom: 20px;">
-        <h5 style="text-align: left; margin-bottom: 15px;"><u><b>Pillow Smart Match Quiz</b></u></h5>
+        <h5 style="text-align: left; margin-bottom: 15px;"><u><b>Find My Pillow</b></u></h5>
     </div>
 
     <div style="margin-bottom: 20px;">
@@ -78,7 +87,7 @@
         </div>
     </div>
 
-    <div id="result-container" style="margin-top: 20px; display: none;">
+    <div id="result-container" style="margin-top: 20px; height: 0; overflow: hidden;">
         <h5 id="recommended" style="margin-bottom: 5px;">Recommended</h5>
         <p id="result" class="result-style"></p>
     </div>
@@ -126,6 +135,7 @@
 
                 if (productInfo && productInfo.product) {
                     resultDiv.innerHTML = `<a href="${productInfo.url}" target="_blank" style="text-decoration: none; color: inherit;">${productInfo.product}</a>`;
+                    resultContainer.style.height = resultContainer.scrollHeight + 'px';
                     resultContainer.style.display = 'block';
 
                     // Reset the style
@@ -138,12 +148,13 @@
                         resultDiv.style.color = '#fff';
                     };
                 } else {
+                    resultContainer.style.height = '0';
                     resultContainer.style.display = 'none';
                 }
             } else {
+                resultContainer.style.height = '0';
                 resultContainer.style.display = 'none';
             }
         }
     </script>
 </body>
-
