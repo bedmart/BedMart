@@ -1,70 +1,172 @@
-<script>
-    let selections = {
-        group1: null,
-        group2: null
-    };
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storm Cuddle Curve Pillow Quiz</title>
+    <!-- Include Google Fonts for Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+        }
 
-    const productMapping = {
-        'Wide+Back': {product: 'Storm Cuddle Curve 1.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-1-0/'},
-        'Wide+Side': {product: 'Storm Cuddle Curve 3.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-3-0/'},
-        'Wide+Stomach': {product: 'Storm Cuddle Curve 0.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-0-0/'},
-        'Wide+Combo': {product: 'Storm Cuddle Curve 2.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-2-0/'},
-        'Medium+Back': {product: 'Storm Cuddle Curve 0.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-0-0/'},
-        'Medium+Side': {product: 'Storm Cuddle Curve 2.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-2-0/'},
-        'Medium+Stomach': {product: 'Storm Cuddle Curve 0.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-0-0/'},
-        'Medium+Combo': {product: 'Storm Cuddle Curve 1.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-1-0/'},
-        'Small+Back': {product: 'Storm Cuddle Curve 0.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-0-0/'},
-        'Small+Side': {product: 'Storm Cuddle Curve 1.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-1-0/'},
-        'Small+Stomach': {product: 'Storm Cuddle Curve 0.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-0-0/'},
-        'Small+Combo': {product: 'Storm Cuddle Curve 1.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-1-0/'}
-    };
+        h5, .h5 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            line-height: 1.5;
+            font-weight: 500;
+            color: #161645;
+            margin-bottom: 10px;
+        }
 
-    function selectOption(group, value) {
-        // Update selection
-        selections[group] = value;
+        p, .result-style {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            padding: 10px 20px;
+            border: 2px solid #2bc3f3;
+            border-radius: 5px;
+            background-color: #fff;
+            color: #81868e;
+            display: inline-block;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
 
-        // Update button styles
-        const buttons = document.querySelectorAll(`button[onclick*="${group}"]`);
-        buttons.forEach(button => {
-            button.style.backgroundColor = '#fff';
-            button.style.color = '#81868e';
-        });
-        event.target.style.backgroundColor = '#002e6e';
-        event.target.style.color = '#fff';
+        p.result-style:hover {
+            background-color: #002e6e;
+            color: #2bc3f3;
+            text-decoration: underline;
+        }
 
-        // Show result immediately after updating the selection
-        showResult();
-    }
+        button {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            padding: 10px 20px;
+            border: 2px solid #2bc3f3;
+            border-radius: 5px;
+            background-color: #fff;
+            color: #81868e;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
 
-    function showResult() {
-        const resultDiv = document.getElementById('result');
-        const resultContainer = document.getElementById('result-container');
-        
-        if (selections.group1 && selections.group2) {
-            const calculation = `${selections.group1}+${selections.group2}`;
-            const productInfo = productMapping[calculation];
+        button:hover {
+            background-color: #e0f7ff;
+        }
 
-            if (productInfo && productInfo.product) {
-                resultDiv.innerHTML = `<a href="${productInfo.url}" target="_blank" style="text-decoration: none; color: inherit;">${productInfo.product}</a>`;
-                resultContainer.style.height = resultContainer.scrollHeight + 'px';
-                resultContainer.style.display = 'block';
+        #result-container {
+            overflow: hidden;
+            transition: height 0.3s ease;
+            height: 0;
+            display: none;
+        }
+    </style>
+</head>
 
-                // Reset the style
-                resultDiv.style.backgroundColor = '#fff';
-                resultDiv.style.color = '#81868e';
+<body>
+    <div style="margin-bottom: 20px;">
+        <h5 style="text-align: left; margin-bottom: 15px;"><u><b>Find My Pillow</b></u></h5>
+    </div>
 
-                // Add click event to change style on click
-                resultDiv.onclick = function() {
-                    resultDiv.style.backgroundColor = '#002e6e';
-                    resultDiv.style.color = '#fff';
-                };
+    <div style="margin-bottom: 20px;">
+        <label class="h5" style="display: block; margin-bottom: 10px; text-transform: none;">Shoulder Width</label>
+        <div style="display: flex; gap: 10px;">
+            <button class="p-style box" style="padding: 10px 20px; border: 2px solid #2bc3f3; background-color: #fff; color: #81868e; font-size: 14px; cursor: pointer;" onclick="selectOption('group1', 'Wide')">Wide</button>
+            <button class="p-style box" style="padding: 10px 20px; border: 2px solid #2bc3f3; background-color: #fff; color: #81868e; font-size: 14px; cursor: pointer;" onclick="selectOption('group1', 'Medium')">Medium</button>
+            <button class="p-style box" style="padding: 10px 20px; border: 2px solid #2bc3f3; background-color: #fff; color: #81868e; font-size: 14px; cursor: pointer;" onclick="selectOption('group1', 'Small')">Small</button>
+        </div>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <label class="h5" style="display: block; margin-bottom: 10px; text-transform: none;">Sleep Position</label>
+        <div style="display: flex; gap: 10px;">
+            <button class="p-style box" style="padding: 10px 20px; border: 2px solid #2bc3f3; background-color: #fff; color: #81868e; font-size: 14px; cursor: pointer;" onclick="selectOption('group2', 'Back')">Back</button>
+            <button class="p-style box" style="padding: 10px 20px; border: 2px solid #2bc3f3; background-color: #fff; color: #81868e; font-size: 14px; cursor: pointer;" onclick="selectOption('group2', 'Side')">Side</button>
+            <button class="p-style box" style="padding: 10px 20px; border: 2px solid #2bc3f3; background-color: #fff; color: #81868e; font-size: 14px; cursor: pointer;" onclick="selectOption('group2', 'Stomach')">Stomach</button>
+            <button class="p-style box" style="padding: 10px 20px; border: 2px solid #2bc3f3; background-color: #fff; color: #81868e; font-size: 14px; cursor: pointer;" onclick="selectOption('group2', 'Combo')">Combo</button>
+        </div>
+    </div>
+
+    <div id="result-container" style="margin-top: 20px;">
+        <h5 id="recommended" style="margin-bottom: 5px;">Recommended</h5>
+        <p id="result" class="result-style"></p>
+    </div>
+
+    <script>
+        let selections = {
+            group1: null,
+            group2: null
+        };
+
+        const productMapping = {
+            'Wide+Back': {product: 'Storm Cuddle Curve 1.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-1-0/'},
+            'Wide+Side': {product: 'Storm Cuddle Curve 3.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-3-0/'},
+            'Wide+Stomach': {product: 'Storm Cuddle Curve 0.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-0-0/'},
+            'Wide+Combo': {product: 'Storm Cuddle Curve 2.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-2-0/'},
+            'Medium+Back': {product: 'Storm Cuddle Curve 0.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-0-0/'},
+            'Medium+Side': {product: 'Storm Cuddle Curve 2.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-2-0/'},
+            'Medium+Stomach': {product: 'Storm Cuddle Curve 0.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-0-0/'},
+            'Medium+Combo': {product: 'Storm Cuddle Curve 1.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-1-0/'},
+            'Small+Back': {product: 'Storm Cuddle Curve 0.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-0-0/'},
+            'Small+Side': {product: 'Storm Cuddle Curve 1.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-1-0/'},
+            'Small+Stomach': {product: 'Storm Cuddle Curve 0.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-0-0/'},
+            'Small+Combo': {product: 'Storm Cuddle Curve 1.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-1-0/'}
+        };
+
+        function selectOption(group, value) {
+            // Update selection
+            selections[group] = value;
+
+            // Update button styles
+            const buttons = document.querySelectorAll(`button[onclick*="${group}"]`);
+            buttons.forEach(button => {
+                button.style.backgroundColor = '#fff';
+                button.style.color = '#81868e';
+            });
+            event.target.style.backgroundColor = '#002e6e';
+            event.target.style.color = '#fff';
+
+            // Show result immediately after updating the selection
+            showResult();
+        }
+
+        function showResult() {
+            const resultDiv = document.getElementById('result');
+            const resultContainer = document.getElementById('result-container');
+            
+            if (selections.group1 && selections.group2) {
+                const calculation = `${selections.group1}+${selections.group2}`;
+                const productInfo = productMapping[calculation];
+
+                if (productInfo && productInfo.product) {
+                    resultDiv.innerHTML = `<a href="${productInfo.url}" target="_blank" style="text-decoration: none; color: inherit;">${productInfo.product}</a>`;
+                    resultContainer.style.height = resultContainer.scrollHeight + 'px';
+                    resultContainer.style.display = 'block';
+
+                    // Reset the style
+                    resultDiv.style.backgroundColor = '#fff';
+                    resultDiv.style.color = '#81868e';
+
+                    // Add click event to change style on click
+                    resultDiv.onclick = function() {
+                        resultDiv.style.backgroundColor = '#002e6e';
+                        resultDiv.style.color = '#fff';
+                    };
+                } else {
+                    resultContainer.style.height = '0';
+                    resultContainer.style.display = 'none';
+                }
             } else {
                 resultContainer.style.height = '0';
                 resultContainer.style.display = 'none';
             }
-        } else {
-            resultContainer.style.height = '0';
-            resultContainer.style.display = 'none';
         }
-    }
-</script>
+    </script>
+</body>
+</html>
