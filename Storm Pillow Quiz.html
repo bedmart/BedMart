@@ -99,74 +99,74 @@
     </div>
 
     <script>
-        let selections = {
-            group1: null,
-            group2: null
-        };
+    let selections = {
+        group1: null,
+        group2: null
+    };
 
-        const productMapping = {
-            'Wide+Back': {product: 'Storm Cuddle Curve 1.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-1-0/'},
-            'Wide+Side': {product: 'Storm Cuddle Curve 3.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-3-0/'},
-            'Wide+Stomach': {product: 'Storm Cuddle Curve 0.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-0-0/'},
-            'Wide+Combo': {product: 'Storm Cuddle Curve 2.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-2-0/'},
-            'Medium+Back': {product: 'Storm Cuddle Curve 0.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-0-0/'},
-            'Medium+Side': {product: 'Storm Cuddle Curve 2.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-2-0/'},
-            'Medium+Stomach': {product: 'Storm Cuddle Curve 0.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-0-0/'},
-            'Medium+Combo': {product: 'Storm Cuddle Curve 1.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-1-0/'},
-            'Small+Back': {product: 'Storm Cuddle Curve 0.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-0-0/'},
-            'Small+Side': {product: 'Storm Cuddle Curve 1.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-1-0/'},
-            'Small+Stomach': {product: 'Storm Cuddle Curve 0.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-0-0/'},
-            'Small+Combo': {product: 'Storm Cuddle Curve 1.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-1-0/'}
-        };
+    const productMapping = {
+        'Wide+Back': {product: 'Storm Cuddle Curve 1.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-1-0/'},
+        'Wide+Side': {product: 'Storm Cuddle Curve 3.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-3-0/'},
+        'Wide+Stomach': {product: 'Storm Cuddle Curve 0.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-0-0/'},
+        'Wide+Combo': {product: 'Storm Cuddle Curve 2.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-2-0/'},
+        'Medium+Back': {product: 'Storm Cuddle Curve 0.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-0-0/'},
+        'Medium+Side': {product: 'Storm Cuddle Curve 2.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-2-0/'},
+        'Medium+Stomach': {product: 'Storm Cuddle Curve 0.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-0-0/'},
+        'Medium+Combo': {product: 'Storm Cuddle Curve 1.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-1-0/'},
+        'Small+Back': {product: 'Storm Cuddle Curve 0.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-0-0/'},
+        'Small+Side': {product: 'Storm Cuddle Curve 1.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-1-0/'},
+        'Small+Stomach': {product: 'Storm Cuddle Curve 0.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-0-0/'},
+        'Small+Combo': {product: 'Storm Cuddle Curve 1.0', url: 'https://www.shopbedmart.com/product/frames-accessories/bedding/pillows/storm-cuddle-curve-pillow-1-0/'}
+    };
 
-        function selectOption(group, value) {
-            // Update selection
-            selections[group] = value;
+    function selectOption(group, value) {
+        // Update selection
+        selections[group] = value;
 
-            // Update button styles
-            const buttons = document.querySelectorAll(`button[onclick*="${group}"]`);
-            buttons.forEach(button => {
-                button.style.backgroundColor = '#fff';
-                button.style.color = '#81868e';
-            });
-            event.target.style.backgroundColor = '#002e6e';
-            event.target.style.color = '#fff';
+        // Update button styles
+        const buttons = document.querySelectorAll(`button[onclick*="${group}"]`);
+        buttons.forEach(button => {
+            button.style.backgroundColor = '#fff';
+            button.style.color = '#81868e';
+        });
+        event.target.style.backgroundColor = '#002e6e';
+        event.target.style.color = '#fff';
 
-            // Show result immediately after updating the selection
-            showResult();
-        }
+        // Ensure the result is shown immediately
+        showResult();
+    }
 
-        function showResult() {
-            const resultDiv = document.getElementById('result');
-            const resultContainer = document.getElementById('result-container');
-            
-            if (selections.group1 && selections.group2) {
-                const calculation = `${selections.group1}+${selections.group2}`;
-                const productInfo = productMapping[calculation];
+    function showResult() {
+        const resultDiv = document.getElementById('result');
+        const resultContainer = document.getElementById('result-container');
 
-                if (productInfo && productInfo.product) {
-                    resultDiv.innerHTML = `<a href="${productInfo.url}" target="_blank" style="text-decoration: none; color: inherit;">${productInfo.product}</a>`;
-                    resultContainer.style.height = resultContainer.scrollHeight + 'px';
-                    resultContainer.style.display = 'block';
+        if (selections.group1 && selections.group2) {
+            const calculation = `${selections.group1}+${selections.group2}`;
+            const productInfo = productMapping[calculation];
 
-                    // Reset the style
-                    resultDiv.style.backgroundColor = '#fff';
-                    resultDiv.style.color = '#81868e';
+            if (productInfo && productInfo.product) {
+                resultDiv.innerHTML = `<a href="${productInfo.url}" target="_blank" style="text-decoration: none; color: inherit;">${productInfo.product}</a>`;
+                resultContainer.style.height = 'auto';
+                resultContainer.style.display = 'block';
 
-                    // Add click event to change style on click
-                    resultDiv.onclick = function() {
-                        resultDiv.style.backgroundColor = '#002e6e';
-                        resultDiv.style.color = '#fff';
-                    };
-                } else {
-                    resultContainer.style.height = '0';
-                    resultContainer.style.display = 'none';
-                }
+                // Reset the style
+                resultDiv.style.backgroundColor = '#fff';
+                resultDiv.style.color = '#81868e';
+
+                // Add click event to change style on click
+                resultDiv.onclick = function() {
+                    resultDiv.style.backgroundColor = '#002e6e';
+                    resultDiv.style.color = '#fff';
+                };
             } else {
                 resultContainer.style.height = '0';
                 resultContainer.style.display = 'none';
             }
+        } else {
+            resultContainer.style.height = '0';
+            resultContainer.style.display = 'none';
         }
-    </script>
+    }
+</script>
 </body>
 </html>
